@@ -1,5 +1,5 @@
-import DocumentEditor from "@/components/editor/DocumentEditor";
+import ComposerWorkspace from "@/components/workspace/ComposerWorkspace";
 
 export default function EditorPage() {
-  return <DocumentEditor />;
+  return <ComposerWorkspace />;
 }

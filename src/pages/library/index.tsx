@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -61,76 +60,78 @@ export default function LibraryPage() {
   );
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">SOP Library</h1>
-        <Button onClick={() => navigate("/editor/new")}>
-          <FileText className="h-4 w-4 mr-2" />
-          New SOP
-        </Button>
-      </div>
-
-      <Card className="mb-6">
-        <div className="p-4 flex items-center gap-4">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search SOPs..."
-              className="pl-9"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-          <Button variant="outline">
-            <Filter className="h-4 w-4 mr-2" />
-            Filters
+    <div className="h-screen flex flex-col bg-background">
+      <div className="p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-3xl font-bold">SOP Library</h1>
+          <Button onClick={() => navigate("/editor/new")}>
+            <FileText className="h-4 w-4 mr-2" />
+            New SOP
           </Button>
         </div>
-      </Card>
 
-      <Card>
-        <ScrollArea className="h-[calc(100vh-280px)]">
-          <div className="p-4">
-            <div className="grid gap-4">
-              {filteredSOPs.map((sop) => (
-                <div
-                  key={sop.id}
-                  className="flex items-center justify-between p-4 rounded-lg border hover:bg-muted/50 cursor-pointer"
-                  onClick={() => navigate(`/editor/${sop.id}`)}
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="p-2 rounded-lg bg-primary/10">
-                      <FileText className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-semibold">{sop.title}</h3>
-                        {sop.favorite && (
-                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        )}
-                      </div>
-                      <p className="text-sm text-muted-foreground">
-                        {sop.category}
-                      </p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-muted-foreground">
-                          Last updated {sop.lastUpdated}
-                        </span>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">
-                          {sop.status}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <Button variant="ghost" size="icon">
-                    <MoreVertical className="h-4 w-4" />
-                  </Button>
-                </div>
-              ))}
+        <Card className="mb-6">
+          <div className="p-4 flex items-center gap-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search SOPs..."
+                className="pl-9"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
             </div>
+            <Button variant="outline">
+              <Filter className="h-4 w-4 mr-2" />
+              Filters
+            </Button>
           </div>
-        </ScrollArea>
-      </Card>
+        </Card>
+
+        <Card>
+          <ScrollArea className="h-[calc(100vh-280px)]">
+            <div className="p-4">
+              <div className="grid gap-4">
+                {filteredSOPs.map((sop) => (
+                  <div
+                    key={sop.id}
+                    className="flex items-center justify-between p-4 rounded-lg border hover:bg-muted/50 cursor-pointer"
+                    onClick={() => navigate(`/editor/${sop.id}`)}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="p-2 rounded-lg bg-primary/10">
+                        <FileText className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-semibold">{sop.title}</h3>
+                          {sop.favorite && (
+                            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                          )}
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          {sop.category}
+                        </p>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="text-xs text-muted-foreground">
+                            Last updated {sop.lastUpdated}
+                          </span>
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                            {sop.status}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <Button variant="ghost" size="icon">
+                      <MoreVertical className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollArea>
+        </Card>
+      </div>
     </div>
   );
 }

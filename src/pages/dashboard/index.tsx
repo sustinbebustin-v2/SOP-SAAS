@@ -1,117 +1,52 @@
-import { Card } from "@/components/ui/card";
-import { FileText, Clock, Users, Star } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Plus, Search } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+  const documents = [];
+
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <div className="grid gap-6">
-        <h1 className="text-3xl font-bold">Dashboard</h1>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="p-4 flex items-center gap-4">
-            <div className="p-3 rounded-full bg-blue-500/10">
-              <FileText className="h-6 w-6 text-blue-500" />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Total SOPs</p>
-              <p className="text-2xl font-bold">24</p>
-            </div>
-          </Card>
-
-          <Card className="p-4 flex items-center gap-4">
-            <div className="p-3 rounded-full bg-green-500/10">
-              <Clock className="h-6 w-6 text-green-500" />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Recent Updates</p>
-              <p className="text-2xl font-bold">12</p>
-            </div>
-          </Card>
-
-          <Card className="p-4 flex items-center gap-4">
-            <div className="p-3 rounded-full bg-yellow-500/10">
-              <Star className="h-6 w-6 text-yellow-500" />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Favorites</p>
-              <p className="text-2xl font-bold">8</p>
-            </div>
-          </Card>
-
-          <Card className="p-4 flex items-center gap-4">
-            <div className="p-3 rounded-full bg-purple-500/10">
-              <Users className="h-6 w-6 text-purple-500" />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Team Members</p>
-              <p className="text-2xl font-bold">6</p>
-            </div>
-          </Card>
+    <div className="h-screen flex flex-col bg-background">
+      {/* Top Navigation */}
+      <header className="border-b">
+        <div className="flex items-center gap-4 p-2">
+          <span className="font-medium">Documents</span>
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input placeholder="Search Documents..." className="pl-8" />
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate("/editor/new")}
+          >
+            <Plus className="h-5 w-5" />
+          </Button>
         </div>
+      </header>
 
-        <div className="grid lg:grid-cols-2 gap-6">
-          <Card className="p-4">
-            <h2 className="text-lg font-semibold mb-4">Recent Activity</h2>
-            <div className="space-y-4">
-              {[
-                {
-                  title: "Customer Support SOP",
-                  action: "Updated",
-                  time: "2h ago",
-                },
-                {
-                  title: "Product Release Guide",
-                  action: "Created",
-                  time: "4h ago",
-                },
-                {
-                  title: "Onboarding Process",
-                  action: "Reviewed",
-                  time: "6h ago",
-                },
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-between py-2 border-b last:border-0"
-                >
-                  <div>
-                    <p className="font-medium">{item.title}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {item.action}
-                    </p>
-                  </div>
-                  <p className="text-sm text-muted-foreground">{item.time}</p>
-                </div>
-              ))}
-            </div>
-          </Card>
-
-          <Card className="p-4">
-            <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
-            <div className="grid gap-2">
-              {[
-                {
-                  title: "Create New SOP",
-                  icon: <FileText className="h-4 w-4" />,
-                },
-                {
-                  title: "Import Documents",
-                  icon: <FileText className="h-4 w-4" />,
-                },
-                { title: "Manage Team", icon: <Users className="h-4 w-4" /> },
-              ].map((item, i) => (
-                <button
-                  key={i}
-                  className="flex items-center gap-2 p-2 hover:bg-muted rounded-md text-left"
-                >
-                  {item.icon}
-                  <span>{item.title}</span>
-                </button>
-              ))}
-            </div>
-          </Card>
+      {/* Main Content */}
+      {documents.length === 0 ? (
+        <div className="flex-1 flex flex-col items-center justify-center gap-4">
+          <Plus className="h-12 w-12 text-muted-foreground" />
+          <div className="text-center">
+            <p className="text-muted-foreground">No Documents Yet</p>
+            <p className="text-sm text-muted-foreground">
+              Click below to create your first document
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <Button onClick={() => navigate("/editor/new")}>
+              <Plus className="h-4 w-4 mr-2" />
+              Create Document
+            </Button>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex-1 p-4">{/* Document list will go here */}</div>
+      )}
     </div>
   );
 }

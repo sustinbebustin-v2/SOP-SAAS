@@ -7,12 +7,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   ArrowLeft,
   Settings,
-  Send,
+  ArrowUp,
   Bold,
   Italic,
   Code,
   Mic,
   Pencil,
+  MessageSquarePlus,
+  Globe,
+  Bookmark,
+  FileText,
+  Image,
 } from "lucide-react";
 
 export default function ComposerWorkspace() {
@@ -39,14 +44,17 @@ export default function ComposerWorkspace() {
         </div>
       </div>
 
-      <ResizablePanelGroup direction="horizontal" className="flex-1">
+      <ResizablePanelGroup
+        direction="horizontal"
+        className="flex-1 [&>div]:border-r [&>div:last-child]:border-r-0"
+      >
         {/* Notes Panel */}
         <ResizablePanel defaultSize={25} minSize={20} maxSize={30}>
           <div className="h-full flex flex-col">
             <div className="p-2 border-b flex items-center justify-between">
               <span className="text-sm font-medium">Notes</span>
             </div>
-            <Tabs defaultValue="notes" className="flex-1">
+            <Tabs defaultValue="notes" className="flex-1 flex flex-col">
               <TabsList className="w-full justify-start px-2 border-b bg-transparent h-9">
                 <TabsTrigger
                   value="notes"
@@ -68,23 +76,29 @@ export default function ComposerWorkspace() {
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="notes" className="flex-1 p-0">
-                <ScrollArea className="h-[calc(100vh-8.5rem)]">
-                  <div className="p-4 flex flex-col items-center justify-center h-48">
-                    <p className="text-sm text-muted-foreground">
-                      No Notes Yet
-                    </p>
-                    <p className="text-xs text-muted-foreground">
+              <TabsContent value="notes" className="flex-1 flex flex-col p-0">
+                <ScrollArea className="flex-1">
+                  <div className="h-[calc(100vh-14rem)] flex flex-col items-center justify-center">
+                    <MessageSquarePlus className="h-12 w-12 text-primary mb-4" />
+                    <p className="text-base font-medium">No Notes Yet</p>
+                    <p className="text-sm text-muted-foreground mt-1">
                       Start adding voice or text notes to your thread
                     </p>
                   </div>
                 </ScrollArea>
-                <div className="border-t p-2 flex gap-2">
-                  <Button className="flex-1" size="sm">
+                <div className="px-4 pb-8 grid grid-cols-2 gap-2">
+                  <Button
+                    className="w-full bg-black text-white hover:bg-black/90"
+                    size="lg"
+                  >
                     <Mic className="h-4 w-4 mr-2" />
                     Record
                   </Button>
-                  <Button variant="outline" className="flex-1" size="sm">
+                  <Button
+                    variant="outline"
+                    className="w-full bg-muted/50"
+                    size="lg"
+                  >
                     <Pencil className="h-4 w-4 mr-2" />
                     Write
                   </Button>
@@ -219,12 +233,51 @@ export default function ComposerWorkspace() {
                 </div>
               </div>
             </ScrollArea>
-            <div className="p-2 border-t">
-              <div className="relative">
-                <Input placeholder="Ask a question..." className="pr-24" />
-                <Button size="sm" className="absolute right-1 top-1">
-                  <Send className="h-4 w-4" />
-                </Button>
+            <div className="p-4">
+              <div className="border-t mb-4" />
+              <div className="bg-muted/50 rounded-xl p-3 min-h-[120px]">
+                <textarea
+                  placeholder="Ask a question..."
+                  className="w-full min-h-[60px] border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 px-0 resize-none text-sm"
+                />
+                <div className="flex items-center gap-2 mt-2 text-muted-foreground">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 rounded-lg hover:bg-muted"
+                  >
+                    <Globe className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 rounded-lg hover:bg-muted"
+                  >
+                    <Bookmark className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 rounded-lg hover:bg-muted"
+                  >
+                    <FileText className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 rounded-lg hover:bg-muted"
+                  >
+                    <Image className="h-4 w-4" />
+                  </Button>
+                  <div className="flex-1" />
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 rounded-lg hover:bg-muted"
+                  >
+                    <ArrowUp className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
